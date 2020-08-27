@@ -18,7 +18,7 @@ function App() {
     ],
   };
 
-  const [pc, setPc] = useState(new RTCPeerConnection(config))
+  const [pc, setPc] = useState(new RTCPeerConnection(null))
   const [socket, setSocket] = useState(null)
 
 
