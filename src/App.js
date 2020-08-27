@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import './App.css'
 import socketIOClient from "socket.io-client";
 const ENDPOINT = "https://server-socket-io.herokuapp.com";
-// const ENDPOINT = "http://localhost:3333";
+//const ENDPOINT = "http://localhost:3333";
 
 function App() {
   const [cameraStatus, setCameraStatus] = useState({status: true, text: 'off'})
@@ -13,11 +13,40 @@ function App() {
   const config = {
     iceServers: [
       {
-        urls: ['stun:stun.l.google.com:19302',
+        urls: ['stun:stun01.sipphone.com',
+        'stun:stun.ekiga.net',
+        'stun:stun.fwdnet.net',
+        'stun:stun.ideasip.com',
+        'stun:stun.iptel.org',
+        'stun:stun.rixtelecom.se',
+        'stun:stun.schlund.de',
+        'stun:stun.l.google.com:19302',
         'stun:stun1.l.google.com:19302',
         'stun:stun2.l.google.com:19302',
         'stun:stun3.l.google.com:19302',
-        'stun:stun4.l.google.com:19302']
+        'stun:stun4.l.google.com:19302',
+        'stun:stunserver.org',
+        'stun:stun.softjoys.com',
+        'stun:stun.voiparound.com',
+        'stun:stun.voipbuster.com',
+        'stun:stun.voipstunt.com',
+        'stun:stun.voxgratia.org',
+        'stun:stun.xten.com',
+        {
+            url: 'turn:numb.viagenie.ca',
+            credential: 'muazkh',
+            username: 'webrtc@live.com'
+        },
+        {
+            url: 'turn:192.158.29.39:3478?transport=udp',
+            credential: 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
+            username: '28224511:1379330808'
+        },
+        {
+            url: 'turn:192.158.29.39:3478?transport=tcp',
+            credential: 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
+            username: '28224511:1379330808'
+        }]
       },
     ],
   };
