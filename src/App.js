@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './App.css'
 import socketIOClient from "socket.io-client";
-const ENDPOINT = "http://192.168.0.107:3333";
+const ENDPOINT = "https://server-socket-io.herokuapp.com";
 
 function App() {
   const [cameraStatus, setCameraStatus] = useState({status: true, text: 'off'})
