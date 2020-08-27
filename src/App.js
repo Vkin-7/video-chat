@@ -12,13 +12,14 @@ function App() {
   const config = {
     iceServers: [
       {
-        urls: ['stun:stun.l.google.com:19302', 'stun:stun2.l.google.com:19305',
-        'stun:stun3.sipphone.com', 'stun:stun4.ekiga.net'],
+        credential: "peerjsp",
+        urls: "turn:0.peerjs.com:3478",
+        username: "peerjs"
       },
     ],
   };
 
-  const [pc, setPc] = useState(new RTCPeerConnection(null))
+  const [pc, setPc] = useState(new RTCPeerConnection())
   const [socket, setSocket] = useState(null)
 
 
@@ -42,6 +43,7 @@ function App() {
 
   const createOffer = () => {
     console.log('Offer')
+    
     pc.createOffer({offerToReceiveVideo: 1})
       .then(sdp => {
         //console.log(JSON.stringify(sdp))
