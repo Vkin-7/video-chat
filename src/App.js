@@ -89,7 +89,7 @@ function App() {
   }
 
   const failure = (e) => {
-    console.log(e)
+    alert(e)
   }
 
   async function getMedia(){
