@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './App.css'
 import socketIOClient from "socket.io-client";
-const ENDPOINT = "https://server-socket-io.herokuapp.com";
+//const ENDPOINT = "https://server-socket-io.herokuapp.com";
+const ENDPOINT = "http://localhost:3333";
 
 function App() {
   const [cameraStatus, setCameraStatus] = useState({status: true, text: 'off'})
@@ -12,14 +13,16 @@ function App() {
   const config = {
     iceServers: [
       {
-        credential: "peerjsp",
-        urls: "turn:0.peerjs.com:3478",
-        username: "peerjs"
+        urls: ['stun:stun.l.google.com:19302',
+        'stun:stun1.l.google.com:19302',
+        'stun:stun2.l.google.com:19302',
+        'stun:stun3.l.google.com:19302',
+        'stun:stun4.l.google.com:19302']
       },
     ],
   };
 
-  const [pc, setPc] = useState(new RTCPeerConnection())
+  const [pc, setPc] = useState(new RTCPeerConnection(config))
   const [socket, setSocket] = useState(null)
 
 
@@ -113,7 +116,6 @@ function App() {
   }
 
   pc.ontrack = (e) => {
-    console.log(e.streams)
     remoteVideoRef.current.srcObject = e.streams[0]
   }
 
