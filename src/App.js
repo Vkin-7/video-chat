@@ -113,6 +113,7 @@ function App() {
   }
 
   pc.ontrack = (e) => {
+    console.log(e.streams)
     remoteVideoRef.current.srcObject = e.streams[0]
   }
 
