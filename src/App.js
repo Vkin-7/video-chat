@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './App.css'
 import socketIOClient from "socket.io-client";
-//const ENDPOINT = "https://server-socket-io.herokuapp.com";
-const ENDPOINT = "http://localhost:3333";
+const ENDPOINT = "https://server-socket-io.herokuapp.com";
+// const ENDPOINT = "http://localhost:3333";
 
 function App() {
   const [cameraStatus, setCameraStatus] = useState({status: true, text: 'off'})
@@ -22,7 +22,13 @@ function App() {
     ],
   };
 
-  const [pc, setPc] = useState(new RTCPeerConnection(config))
+  const [pc, setPc] = useState(new RTCPeerConnection({
+    iceServers: [
+      {
+        urls: 'stun:stun.l.google.com:19302'
+      }
+    ]
+  }))
   const [socket, setSocket] = useState(null)
 
 
