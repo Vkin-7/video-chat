@@ -90,7 +90,13 @@ function App() {
     }
   ]
 
-  const [pc, setPc] = useState(new RTCPeerConnection(ICE_CONFIG))
+  const [pc, setPc] = useState(new RTCPeerConnection({
+    iceServers: [
+      {
+        urls: ['stun:stun.l.google.com:19302'],
+      },
+    ],
+  }))
   const [socket, setSocket] = useState(null)
 
 
