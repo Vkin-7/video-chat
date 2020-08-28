@@ -54,7 +54,33 @@ function App() {
   const [pc, setPc] = useState(new RTCPeerConnection({
     iceServers: [
       {
-        urls: 'stun:stun.l.google.com:19302'
+        urls: ['stun.1und1.de:3478',
+        'stun.gmx.net:3478',
+        'stun.l.google.com:19302',
+        'stun1.l.google.com:19302',
+        'stun2.l.google.com:19302',
+        'stun3.l.google.com:19302',
+        'stun4.l.google.com:19302',
+        '23.21.150.121:3478',
+        'iphone-stun.strato-iphone.de:3478',
+        'numb.viagenie.ca:3478',
+        'stun.12connect.com:3478',
+        'stun.12voip.com:3478',
+        'stun.1und1.de:3478',
+        'stun.2talk.co.nz:3478',
+        'turn:turn01.hubl.in?transport=udp',
+        'turn:turn02.hubl.in?transport=tcp',
+        
+        {
+            url: 'turn:numb.viagenie.ca',
+            credential: 'muazkh',
+            username: 'webrtc@live.com'
+        },
+        {
+            url: 'turn:192.158.29.39:3478?transport=udp',
+            credential: 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
+            username: '28224511:1379330808'
+        },]
       }
     ]
   }))
