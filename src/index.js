@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import ClientComponent from './ClientComponent';
+import GroupRoom from './GroupRoom';
+
 
 ReactDOM.render(
   <React.StrictMode>
-    <ClientComponent />
+    <GroupRoom />
   </React.StrictMode>,
   document.getElementById('root')
 );

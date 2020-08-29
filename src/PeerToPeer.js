@@ -22,7 +22,7 @@ const Video = styled.video`
   height: 50%;
 `;
 
-function ClientComponent() {
+function PeerToPeer() {
   const [yourID, setYourID] = useState("");
   const [users, setUsers] = useState({});
   const [stream, setStream] = useState();
@@ -161,4 +161,4 @@ function ClientComponent() {
   );
 }
 
-export default ClientComponent;
+export default PeerToPeer;
