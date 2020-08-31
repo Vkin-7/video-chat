@@ -36,7 +36,8 @@ function PeerToPeer() {
   const socket = useRef();
 
   useEffect(() => {
-    socket.current = io("https://server-socket-io.herokuapp.com");
+    // socket.current = io("https://server-socket-io.herokuapp.com");
+    socket.current = io("http://localhost:3333");
     navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(stream => {
       setStream(stream);
       if (userVideo.current) {
