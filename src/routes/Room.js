@@ -14,7 +14,7 @@ const Room = (props) => {
             userVideo.current.srcObject = stream;
             userStream.current = stream;
 
-            socketRef.current = io.connect("http://localhost:3333");
+            socketRef.current = io.connect("https://server-socket-io.herokuapp.com");
             socketRef.current.emit("join room", props.match.params.roomID);
 
             socketRef.current.on('other user', userID => {
