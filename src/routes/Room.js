@@ -10,11 +10,15 @@ const Room = (props) => {
     const userStream = useRef();
 
     useEffect(() => {
+        var vid = document.getElementById("remoteVideo");
+        vid.volume = 0.2;
         navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(stream => {
             userVideo.current.srcObject = stream;
             userStream.current = stream;
+            console.log(stream)
 
-            socketRef.current = io.connect("https://server-socket-io.herokuapp.com");
+            socketRef.current = io.connect("http://localhost:3333");
+            //socketRef.current = io.connect("https://server-socket-io.herokuapp.com");
             socketRef.current.emit("join room", props.match.params.roomID);
 
             socketRef.current.on('other user', userID => {
@@ -55,6 +59,10 @@ const Room = (props) => {
         });
 
         peer.onicecandidate = handleICECandidateEvent;
+        //peer.onaddstream = (e) => {
+        //    console.log('tá aki')
+        //    partnerVideo.current.srcObject = e.streams[0];
+        //}
         peer.ontrack = handleTrackEvent;
         peer.onnegotiationneeded = () => handleNegotiationNeededEvent(userID);
 
@@ -116,13 +124,14 @@ const Room = (props) => {
     }
 
     function handleTrackEvent(e) {
+        console.log('chegou aki')
         partnerVideo.current.srcObject = e.streams[0];
     };
 
     return (
         <div>
             <video autoPlay muted ref={userVideo} />
-            <video autoPlay ref={partnerVideo} />
+            <video id='remoteVideo' autoPlay ref={partnerVideo} />
         </div>
     );
 };
