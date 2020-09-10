@@ -8,6 +8,7 @@ const Room = (props) => {
     const socketRef = useRef();
     const otherUser = useRef();
     const userStream = useRef();
+    const senders = useRef([]);
 
     useEffect(() => {
         var vid = document.getElementById("remoteVideo");
@@ -17,8 +18,8 @@ const Room = (props) => {
             userStream.current = stream;
             console.log(stream)
 
-            socketRef.current = io.connect("http://localhost:3333");
-            //socketRef.current = io.connect("https://server-socket-io.herokuapp.com");
+            //socketRef.current = io.connect("http://localhost:3333");
+            socketRef.current = io.connect("https://server-socket-io.herokuapp.com");
             socketRef.current.emit("join room", props.match.params.roomID);
 
             socketRef.current.on('other user', userID => {
@@ -41,7 +42,7 @@ const Room = (props) => {
 
     function callUser(userID) {
         peerRef.current = createPeer(userID);
-        userStream.current.getTracks().forEach(track => peerRef.current.addTrack(track, userStream.current));
+        userStream.current.getTracks().forEach(track => senders.current.push(peerRef.current.addTrack(track, userStream.current)));
     }
 
     function createPeer(userID) {
@@ -59,10 +60,6 @@ const Room = (props) => {
         });
 
         peer.onicecandidate = handleICECandidateEvent;
-        //peer.onaddstream = (e) => {
-        //    console.log('tá aki')
-        //    partnerVideo.current.srcObject = e.streams[0];
-        //}
         peer.ontrack = handleTrackEvent;
         peer.onnegotiationneeded = () => handleNegotiationNeededEvent(userID);
 
@@ -128,10 +125,21 @@ const Room = (props) => {
         partnerVideo.current.srcObject = e.streams[0];
     };
 
+    function shareScreen(){
+        navigator.mediaDevices.getDisplayMedia({ cursor: true }).then(stream => {
+            const screenTrack = stream.getTracks()[0];
+            senders.current.find(sender => sender.track.kind === 'video').replaceTrack(screenTrack);
+            screenTrack.onended = function() {
+                senders.current.find(sender => sender.track.kind === 'video').replaceTrack(userStream.current.getTracks()[1])
+            }
+        })
+    }
+
     return (
         <div>
             <video autoPlay muted ref={userVideo} />
             <video id='remoteVideo' autoPlay ref={partnerVideo} />
+            <button onClick={shareScreen} >Share Screen</button>
         </div>
     );
 };
